@@ -1,0 +1,21 @@
+get restaurant by id === everything
+
+// auth/ login, signup
+
+// dashboard info (restaurants, menus, orders)
+
+// create new menu () implemented --> by restaurant
+
+all restarants,
+restaurant by id
+
+menuItems,
+
+cart and order.
+
+id of menuItem and quantity
+
+
+
+
+
