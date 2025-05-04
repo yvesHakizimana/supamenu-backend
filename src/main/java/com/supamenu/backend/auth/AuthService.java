@@ -57,7 +57,8 @@ public class AuthService {
         response.addCookie(cookie);
 
         return new LoginResponse(
-                accessToken.toString()
+                accessToken.toString(),
+                user.getRole()
         );
     }
 

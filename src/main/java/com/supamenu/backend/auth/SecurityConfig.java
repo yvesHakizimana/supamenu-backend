@@ -51,16 +51,16 @@ public class SecurityConfig {
             "/api/v1/auth/initiate-password-reset",
             "/api/v1/auth/reset-password",
             "/api/v1/payment",
-            "/api/v1/restaurants",
+            "/api/v1/restaurants/**", // Changed to allow all paths under /restaurants
             "/files/**"
     };
 
     @Bean
-     UrlBasedCorsConfigurationSource corsConfigurationSource() {
+    UrlBasedCorsConfigurationSource corsConfigurationSource() {
         final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         final CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(false);
-        config.setAllowedOriginPatterns(List.of("http://localhost:8080", "http://127.0.0.1:8080", "10.12.73.211:8080")); // Allow all origins
+        config.setAllowedOriginPatterns(List.of("http://localhost:3000", "http://127.0.0.1:8080", "http://10.12.74.144:3000", "http://10.12.73.211:3000")); // Allow all origins
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
         config.setAllowedHeaders(List.of("*"));
         config.setExposedHeaders(List.of(
@@ -102,10 +102,9 @@ public class SecurityConfig {
                         registry
                                 .requestMatchers(AUTH_WHITELIST).permitAll()
                                 .requestMatchers(HttpMethod.POST, "/users").permitAll()
-
                                 .requestMatchers(HttpMethod.POST, "/api/v1/auth/login").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/api/v1/auth/refresh").permitAll()
-                                .requestMatchers(HttpMethod.POST, "/api/v1/restaurants").hasRole("ADMIN") // -> ROLE_ADMIN
+                                .requestMatchers(HttpMethod.POST, "/api/v1/restaurants/**").hasRole("ADMIN") // Changed to match pattern
                                 .anyRequest().authenticated())
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .exceptionHandling(c -> {

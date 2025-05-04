@@ -42,7 +42,7 @@ public class AuthController {
     }
 
     @PatchMapping("/verify-account")
-    @RateLimiter(name = "auth-rate-limiter")
+    @RateLimiter(name = "otp-rate-limiter")
     ResponseEntity<ApiResponse<?>> verifyAccount(@Valid @RequestBody VerifyAccountDto verifyAccountRequest){
         if(!otpService.verifyOtp(verifyAccountRequest.email(), verifyAccountRequest.otp(), OtpType.VERIFY_ACCOUNT))
             throw new BadRequestException("Invalid email or OTP");
@@ -70,10 +70,10 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    @RateLimiter(name = "otp-rate-limiter")
+    @RateLimiter(name = "auth-rate-limiter")
     public ResponseEntity<LoginResponse> login(@Valid @RequestBody LoginRequestDto loginRequestDto, HttpServletResponse response) {
         var loginResult = authService.login(loginRequestDto, response);
-        return ResponseEntity.ok(new LoginResponse(loginResult.accessToken()));
+        return ResponseEntity.ok(loginResult);
     }
 
 }

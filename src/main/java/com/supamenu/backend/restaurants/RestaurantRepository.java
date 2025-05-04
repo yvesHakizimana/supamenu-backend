@@ -7,7 +7,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface RestaurantRepository extends JpaRepository<Restaurant, UUID>, JpaSpecificationExecutor<Restaurant> {
-    Optional<Restaurant> existsByContactNumberOrOwnerEmailOrOwnerPhoneNumber(String contactNumber, String ownerEmail, String ownerPhoneNumber);
+    boolean existsByContactNumberOrOwnerEmailOrOwnerPhoneNumber(String contactNumber, String ownerEmail, String ownerPhoneNumber);
 
     Optional<Restaurant> findByLocationIgnoreCase(String location);
 }

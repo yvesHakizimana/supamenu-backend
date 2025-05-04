@@ -37,7 +37,8 @@ public class RestaurantService {
                 restaurantDto.contactNumber(),
                 restaurantDto.ownerEmail(),
                 restaurantDto.ownerPhoneNumber()
-        ).isPresent()){
+        )){
+            System.out.println(restaurantDto.contactNumber() + " " + restaurantDto.ownerEmail() + " " + restaurantDto.ownerPhoneNumber());
             throw new BadRequestException("Restaurant with this contact number, email or phone number already exists");
         }
 
